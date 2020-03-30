@@ -61,15 +61,14 @@ public class InvoiceAdapter extends RecyclerView.Adapter<InvoiceAdapter.InvoiceV
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             List<Invoice> filteredList = new ArrayList<>();
-            if(constraint == null || constraint.length()==0){
+            if(constraint.toString().isEmpty()){
                 filteredList.addAll(invoiceList);
-            } else {
-                String filterPattern = constraint.toString().toLowerCase().trim();
-
-                for(Invoice invoice: invoiceList){
-                    if(invoice.getInvoiceStatus().toString().toLowerCase().contains(filterPattern)){
+            }else {
+                for(Invoice invoice:invoiceList){
+                    if(invoice.convertStatus().contains(constraint.toString().toLowerCase())){
                         filteredList.add(invoice);
                     }
+
                 }
             }
             FilterResults results = new FilterResults();
@@ -80,7 +79,7 @@ public class InvoiceAdapter extends RecyclerView.Adapter<InvoiceAdapter.InvoiceV
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
             invoices.clear();
-            invoiceList.addAll((List)results.values);
+            invoices.addAll((List)results.values);
             notifyDataSetChanged();
 
         }

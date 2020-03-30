@@ -56,7 +56,6 @@
         android:id="@+id/search"
         android:layout_width="match_parent"
         android:layout_height="52dp"
-        android:layout_above="@+id/homeVendor"
         android:layout_below="@+id/linearTop"
         android:layout_alignBottom="@+id/homeVendor"
         android:layout_marginTop="0dp"

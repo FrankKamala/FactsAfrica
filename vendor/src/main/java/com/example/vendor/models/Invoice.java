@@ -137,6 +137,9 @@ public class Invoice implements Serializable
 
   public String convertStatus(){
         String status = getInvoiceStatus().toString();
+        String price = getInvoiceAmount();
+        String dueDate = getDueDate();
+
 
         if(status.equals("1")){
             status = "pending";
@@ -145,16 +148,15 @@ public class Invoice implements Serializable
         }else{
             status = "declined";
         }
-        return status;
+        return status+price+dueDate;
 }
 
 
 
-    @NonNull
-    @Override
-    public String toString() {
+    public String toSearch() {
+        String amount = getInvoiceAmount();
 
-        return this.invoiceAmount; ///selects many properties form model
+        return amount; ///selects many properties form model
     }
 
 }

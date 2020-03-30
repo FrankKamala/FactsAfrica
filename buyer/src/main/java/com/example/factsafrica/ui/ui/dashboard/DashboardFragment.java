@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.widget.SearchView;
+import androidx.appcompat.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -45,7 +45,8 @@ public class DashboardFragment extends Fragment {
     private List<Invoice> invoices;
     //InvoiceAdapter invoiceAdapter = new InvoiceAdapter(invoices, getContext());
 
-    SearchView mSearch;
+    private SearchView mSearch;
+    private InvoiceAdapter adapter;
 
 
 
@@ -64,18 +65,22 @@ public class DashboardFragment extends Fragment {
 //        mSearch.setImeOptions(EditorInfo.IME_ACTION_DONE);
         ButterKnife.bind(this, rootView);
         getAllInvoices();
-//        mSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                //invoiceAdapter.getFilter().filter(newText);
-//                return false;
-//            }
-//        });
+
+        mSearch = (SearchView) rootView.findViewById(R.id.invoiceSearch);
+
+
+        mSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                return false;
+            }
+        });
         return rootView;
     }
 
@@ -89,7 +94,7 @@ public class DashboardFragment extends Fragment {
             public void onResponse(Call<List<Invoice>> call, Response<List<Invoice>> response) {
                 invoices = response.body();
                 Log.d(TAG, "onResponse: "+invoices.get(0).getInvoiceAmount());
-                InvoiceAdapter adapter = new InvoiceAdapter(invoices, rootView.getContext());
+                 adapter = new InvoiceAdapter(invoices, rootView.getContext());
                 LinearLayoutManager layoutManager = new LinearLayoutManager(rootView.getContext(), LinearLayoutManager.VERTICAL, false);
                 mInvoicesRecycler.setLayoutManager(layoutManager);
                 mInvoicesRecycler.setHasFixedSize(true);

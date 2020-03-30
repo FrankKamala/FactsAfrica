@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -52,6 +53,8 @@ public class HomeFragment extends Fragment {
         ButterKnife.bind(this, root);
 
         getVendors(); //call get Vendors
+
+
 
         return root;
 
