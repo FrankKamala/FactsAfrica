@@ -5,6 +5,6 @@
         android:duration="1000"/>
     <item
         android:drawable="@drawable/anim2"
-        android:duration="1000"/>
+        android:duration="2000"/>
 
 </animation-list>
